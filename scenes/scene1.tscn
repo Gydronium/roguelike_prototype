@@ -1,0 +1,349 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://scenes/Pool2DBasic.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/testScene.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/core.gd" type="Script" id=3]
+[ext_resource path="res://scenes/player3.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/FractureShard.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/CutShapeVisualizer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://over_progress_bar.png" type="Texture" id=8]
+[ext_resource path="res://shaders/shockwave.gdshader" type="Shader" id=9]
+[ext_resource path="res://scenes/WorldEnvironment.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/Blob.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Camera2D.gd" type="Script" id=13]
+[ext_resource path="res://scenes/ScoreLabel.gd" type="Script" id=14]
+[ext_resource path="res://Comic Sans MS.ttf" type="DynamicFontData" id=15]
+[ext_resource path="res://hexagonal_net_line_background.jpg" type="Texture" id=16]
+[ext_resource path="res://enemy.png" type="Texture" id=17]
+[ext_resource path="res://playerIcon.png" type="Texture" id=18]
+[ext_resource path="res://scenes/Minimap.gd" type="Script" id=19]
+[ext_resource path="res://scenes/background.gd" type="Script" id=20]
+[ext_resource path="res://scenes/WaveFunctionCollapse.tscn" type="PackedScene" id=21]
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = ExtResource( 9 )
+shader_param/center = Vector2( 0.5, 0.5 )
+shader_param/force = 0.0
+shader_param/size = 0.0
+shader_param/thickness = 0.2
+
+[sub_resource type="Animation" id=19]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/force")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:material:shader_param/thickness")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.2 ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "shockwave"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/force")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.7 ),
+"transitions": PoolRealArray( 0.435275, 2.63902 ),
+"update": 0,
+"values": [ 0.8, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 0.31864, 1.1487 ),
+"update": 0,
+"values": [ 0.0, 0.8 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:material:shader_param/thickness")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 0.0583146, 0.307786 ),
+"update": 0,
+"values": [ 0.2, 0.0 ]
+}
+
+[sub_resource type="Gradient" id=12]
+colors = PoolColorArray( 0, 0.6, 1, 1, 0, 0.6, 1, 1 )
+
+[sub_resource type="GradientTexture2D" id=21]
+gradient = SubResource( 12 )
+width = 200
+height = 20
+
+[sub_resource type="Gradient" id=14]
+colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0.636719, 1 )
+
+[sub_resource type="GradientTexture2D" id=3]
+gradient = SubResource( 14 )
+width = 200
+height = 20
+
+[sub_resource type="Gradient" id=6]
+colors = PoolColorArray( 0, 0.6, 1, 1, 0, 0.6, 1, 1 )
+
+[sub_resource type="GradientTexture2D" id=7]
+gradient = SubResource( 6 )
+width = 200
+height = 20
+
+[sub_resource type="Gradient" id=8]
+colors = PoolColorArray( 0.941406, 0.0661926, 0, 1, 0, 1, 0.460938, 1 )
+
+[sub_resource type="GradientTexture2D" id=9]
+gradient = SubResource( 8 )
+width = 200
+height = 20
+fill_from = Vector2( 1, 0 )
+fill_to = Vector2( 0, 0 )
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 15 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.8, 0.172549, 0.223529, 1 )
+
+[node name="scene1" instance=ExtResource( 2 )]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+visible = false
+material = SubResource( 13 )
+scale = Vector2( 2.45872, 2.45872 )
+texture = ExtResource( 16 )
+
+[node name="background" type="Sprite" parent="." index="1"]
+material = SubResource( 13 )
+scale = Vector2( 2.45872, 2.45872 )
+texture = ExtResource( 16 )
+script = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="background" index="0"]
+anims/RESET = SubResource( 19 )
+anims/shockwave = SubResource( 20 )
+
+[node name="core" type="Node2D" parent="." index="2"]
+script = ExtResource( 3 )
+fracture_body_color = Color( 0.345098, 0.67451, 0.835294, 1 )
+info_panel_path = NodePath("../CanvasLayer/InfoPanel")
+
+[node name="WaveFunctionCollapse" parent="core" index="0" instance=ExtResource( 21 )]
+
+[node name="BlobParent" type="Node2D" parent="core" index="1"]
+
+[node name="Blob" parent="core/BlobParent" index="0" instance=ExtResource( 12 )]
+position = Vector2( 200, 300 )
+invincible_time = 0.2
+color_default = Color( 0.215686, 0.392157, 0.509804, 1 )
+radius = 150.0
+shape_area_percent = 0.2
+fractures = 3
+fracture_force = 300.0
+collision_damage = Vector2( 40, 150 )
+collision_knockback_time = 3.0
+target_pos_interval_range = Vector2( 2, 4 )
+keep_distance_range = Vector2( 0, 250 )
+max_speed = 100.0
+accel = 500.0
+decel = 300.0
+regeneration_interval_range = Vector2( 0.5, 0.8 )
+regeneration_start_threshold = 0.672
+regeneration_amount = 25.0
+isShooting = true
+wave_function_collapse_path = NodePath("../../WaveFunctionCollapse")
+
+[node name="Blob2" parent="core/BlobParent" index="1" instance=ExtResource( 12 )]
+radius = 72.0
+wave_function_collapse_path = NodePath("../../WaveFunctionCollapse")
+
+[node name="Blob3" parent="core/BlobParent" index="2" instance=ExtResource( 12 )]
+position = Vector2( -3000, -2000 )
+color_default = Color( 0.564706, 0.121569, 0.745098, 1 )
+radius = 150.0
+wave_function_collapse_path = NodePath("../../WaveFunctionCollapse")
+
+[node name="Blob4" parent="core/BlobParent" index="3" instance=ExtResource( 12 )]
+position = Vector2( -2500, 900 )
+color_default = Color( 1, 0.92549, 0.145098, 1 )
+radius = 50.0
+wave_function_collapse_path = NodePath("../../WaveFunctionCollapse")
+
+[node name="Blob5" parent="core/BlobParent" index="4" instance=ExtResource( 12 )]
+position = Vector2( 900, 3000 )
+color_default = Color( 0.164706, 0.835294, 0.552941, 1 )
+radius = 400.0
+use_random_texture = true
+wave_function_collapse_path = NodePath("../../WaveFunctionCollapse")
+
+[node name="Blob6" parent="core/BlobParent" index="5" instance=ExtResource( 12 )]
+position = Vector2( 1500, 1000 )
+color_default = Color( 0.435294, 0.0862745, 0.0862745, 1 )
+radius = 100.0
+wave_function_collapse_path = NodePath("../../WaveFunctionCollapse")
+
+[node name="Edge" type="StaticBody2D" parent="core" index="2"]
+
+[node name="Polygon2D" type="Polygon2D" parent="core/Edge" index="0"]
+color = Color( 0.403922, 0.2, 0.2, 1 )
+polygon = PoolVector2Array( 4000, -3900, 4000, 4000, -4000, 4000, -4000, -4000, 4000, -4000, 4000, -3901, -3900, -3901, -3900, 3900, 3900, 3900, 3900, -3900 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="core/Edge" index="1"]
+polygon = PoolVector2Array( 4000, -3900, 4000, 4000, -4000, 4000, -4000, -4000, 4000, -4000, 4000, -3901, -3900, -3901, -3900, 3900, 3900, 3900, 3900, -3900 )
+
+[node name="Line2D" type="Line2D" parent="core/Edge" index="2"]
+points = PoolVector2Array( 4000, -3900, 4000, 4000, -4000, 4000, -4000, -4000, 4000, -4000, 4000, -3901, -3900, -3901, -3900, 3900, 3900, 3900, 3900, -3900 )
+
+[node name="Pool_FractureShards" parent="core" index="3" instance=ExtResource( 1 )]
+placed_in_level = true
+instance_template = ExtResource( 6 )
+max_amount = 100
+instantiate_new_on_empty = true
+keep_instances_in_tree = true
+
+[node name="Pool_CutVisualizer" parent="core" index="4" instance=ExtResource( 1 )]
+placed_in_level = true
+instance_template = ExtResource( 7 )
+max_amount = 25
+instantiate_new_on_empty = true
+keep_instances_in_tree = true
+
+[node name="player3" parent="." index="3" instance=ExtResource( 4 )]
+
+[node name="RigidBody2D" parent="player3" index="3"]
+strength = 1.5
+parent_node_path = NodePath("../../core")
+right_progress_bar_node_path = NodePath("../../CanvasLayer/RightProgressBar")
+left_progress_bar_node_path = NodePath("../../CanvasLayer/LeftProgressBar")
+score_node_path = NodePath("../../CanvasLayer/ScoreLabel")
+
+[node name="Camera2D" parent="." index="4"]
+process_mode = 0
+script = ExtResource( 13 )
+player_node_path = NodePath("../player3")
+
+[node name="Tween" type="Tween" parent="Camera2D" index="0"]
+
+[node name="Timer" type="Timer" parent="Camera2D" index="1"]
+one_shot = true
+
+[node name="LeftProgressBar" type="TextureProgress" parent="CanvasLayer" index="2"]
+anchor_left = 0.4
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.8
+margin_left = -99.6
+margin_right = 48.0
+margin_bottom = 250.0
+max_value = 20.0
+step = 0.1
+texture_under = SubResource( 21 )
+texture_progress = SubResource( 3 )
+fill_mode = 1
+
+[node name="RightProgressBar" type="TextureProgress" parent="CanvasLayer" index="3"]
+anchor_left = 0.5
+anchor_top = 0.8
+anchor_right = 0.6
+anchor_bottom = 0.8
+margin_right = -2.40002
+margin_bottom = 20.0
+max_value = 20.0
+step = 0.1
+texture_under = SubResource( 7 )
+texture_progress = SubResource( 9 )
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" index="5"]
+anchor_left = 0.5
+anchor_top = 0.115
+anchor_right = 0.5
+anchor_bottom = 0.115
+margin_left = -72.0
+margin_top = 2.0
+margin_right = 64.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
+text = "SCORE: 0"
+align = 1
+valign = 1
+script = ExtResource( 14 )
+
+[node name="Minimap" type="MarginContainer" parent="CanvasLayer" index="6"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -200.0
+margin_bottom = 200.0
+script = ExtResource( 19 )
+player_node_path = NodePath("../../player3")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Minimap" index="0"]
+margin_right = 200.0
+margin_bottom = 200.0
+texture = ExtResource( 8 )
+patch_margin_left = 200
+patch_margin_top = 200
+
+[node name="PlayerIcon" type="Sprite" parent="CanvasLayer/Minimap/NinePatchRect" index="0"]
+visible = false
+scale = Vector2( 0.0585938, 0.0585938 )
+texture = ExtResource( 18 )
+
+[node name="EnemyIcon" type="Sprite" parent="CanvasLayer/Minimap/NinePatchRect" index="1"]
+visible = false
+position = Vector2( 6.53516, 6.53516 )
+scale = Vector2( 0.189297, 0.189297 )
+texture = ExtResource( 17 )
+
+[node name="WorldEnvironment" parent="." index="6" instance=ExtResource( 11 )]
+
+[connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_Timer_timeout"]
+
+[editable path="core/BlobParent/Blob"]
+[editable path="player3"]
